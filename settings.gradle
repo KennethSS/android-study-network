@@ -1,0 +1,4 @@
+include ':http'
+include ':retrofit'
+include ':app'
+rootProject.name = "android-study-network"
