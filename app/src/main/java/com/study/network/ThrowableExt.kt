@@ -1,8 +1,6 @@
-package com.study.network.retrofit.interceptor
+package com.study.network
 
-import okhttp3.CacheControl
-import okhttp3.Interceptor
-import okhttp3.Response
+import com.study.network.retrofit.exception.NetworkConnectException
 
 /**
  * Copyright 2020 Kenneth
@@ -20,16 +18,14 @@ import okhttp3.Response
  * limitations under the License.
  *
  **/
-class ForceCacheInterceptor(
-    private val networkManager: NetworkManager
-) : Interceptor {
-    override fun intercept(chain: Interceptor.Chain): Response {
-        val builder = chain.request().newBuilder()
-
-        if (networkManager.isNetworkConnected()) {
-            builder.cacheControl(CacheControl.FORCE_CACHE)
+fun Throwable.toNetworkMsg(): NetworkMsg {
+    return when(this) {
+        is NetworkConnectException -> NetworkMsg(
+            desc = "네트워크가 연결되지 않았습니다. 연결 상태 확인 후 다시 시도해주세요.")
+        else -> {
+            // Firebase crash
+            NetworkMsg(
+                "알림", "예상치 못한 문제가 발생했습니다. 잠시 후 다시 시도해주세요.")
         }
-
-        return chain.proceed(builder.build())
     }
 }

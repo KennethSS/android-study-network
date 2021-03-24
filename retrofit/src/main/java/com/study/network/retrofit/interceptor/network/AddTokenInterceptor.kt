@@ -11,11 +11,9 @@ class AddTokenInterceptor : Interceptor {
 
         val authenticationRequestBuilder = chain.request().newBuilder()
 
-
         if (token.isNotEmpty()) {
             authenticationRequestBuilder.addHeader(AUTHORIZATION, "$BEARER $token")
         }
-
 
         return chain.proceed(authenticationRequestBuilder.build())
     }

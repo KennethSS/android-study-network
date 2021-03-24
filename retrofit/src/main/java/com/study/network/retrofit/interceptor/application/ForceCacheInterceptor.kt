@@ -1,10 +1,9 @@
-package com.study.network.retrofit.interceptor.network
+package com.study.network.retrofit.interceptor.application
 
-import com.study.network.retrofit.exception.NetworkConnectException
 import com.study.network.retrofit.interceptor.NetworkState
+import okhttp3.CacheControl
 import okhttp3.Interceptor
 import okhttp3.Response
-import java.io.IOException
 
 /**
  * Copyright 2020 Kenneth
@@ -22,19 +21,17 @@ import java.io.IOException
  * limitations under the License.
  *
  **/
-class NetworkConnectionInterceptor(private val networkManager: NetworkState) : Interceptor {
-
-    private val isConnected: Boolean
-        get() = networkManager.isNetworkConnected()
-
-
-    @Throws(IOException::class)
+class ForceCacheInterceptor(
+    private val networkManager: NetworkState
+) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        if (isConnected) {
-            val newRequest = chain.request().newBuilder()
-            return chain.proceed(newRequest.build())
-        } else {
-            throw NetworkConnectException()
-        }
+        val builder = chain.request().newBuilder()
+
+        builder.cacheControl(
+            if (networkManager.isNetworkConnected()) CacheControl.FORCE_NETWORK
+            else CacheControl.FORCE_CACHE
+        )
+
+        return chain.proceed(builder.build())
     }
 }

@@ -1,10 +1,9 @@
-package com.study.network
+package com.study.network.retrofit.authenticator
 
-import android.app.Application
-import com.orhanobut.logger.AndroidLogAdapter
-import com.orhanobut.logger.Logger
-import com.study.network.retrofit.RetrofitClient
-import timber.log.Timber
+import okhttp3.Authenticator
+import okhttp3.Request
+import okhttp3.Response
+import okhttp3.Route
 
 
 /**
@@ -23,18 +22,25 @@ import timber.log.Timber
  * limitations under the License.
  *
  **/
-class App : Application() {
-    override fun onCreate() {
-        super.onCreate()
+class TokenAuthenticator : Authenticator {
+    override fun authenticate(route: Route?, response: Response): Request? {
+        val responseCode = response.code
 
+        var token = ""
 
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
+        when(responseCode) {
+            in 200..299 -> {
+
+            }
+            401 -> {
+
+            }
         }
 
-        RetrofitClient.init(BuildConfig.DEBUG, NetworkStateImpl(this))
 
-        Logger.addLogAdapter(AndroidLogAdapter())
-        Logger.d("hello")
+        return response.request
+            .newBuilder()
+            .header("Authorization", "JWT $token")
+            .build()
     }
 }

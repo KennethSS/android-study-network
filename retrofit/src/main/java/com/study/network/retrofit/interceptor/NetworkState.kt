@@ -16,6 +16,6 @@ package com.study.network.retrofit.interceptor
  * limitations under the License.
  *
  **/
-interface NetworkManager {
+interface NetworkState {
     fun isNetworkConnected(): Boolean
 }

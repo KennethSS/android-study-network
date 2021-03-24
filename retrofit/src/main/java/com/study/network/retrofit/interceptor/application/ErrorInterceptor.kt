@@ -1,9 +1,8 @@
-package com.study.network.retrofit.interceptor
+package com.study.network.retrofit.interceptor.application
 
-import okhttp3.CacheControl
 import okhttp3.Interceptor
+import okhttp3.Request
 import okhttp3.Response
-import java.util.concurrent.TimeUnit
 
 /**
  * Copyright 2020 Kenneth
@@ -21,15 +20,20 @@ import java.util.concurrent.TimeUnit
  * limitations under the License.
  *
  **/
-class CacheInterceptor : Interceptor {
+class ErrorInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        val response: Response = chain.proceed(chain.request())
-        val cacheControl = CacheControl.Builder()
-            .maxAge(5, TimeUnit.HOURS)
-            .build()
+        val request: Request = chain.request()
+        val response = chain.proceed(request)
 
-        return response.newBuilder()
-            .header("Cache-Control", cacheControl.toString())
-            .build()
+        when(response.code) {
+            in 200..299 -> {
+
+            }
+            else -> {
+
+            }
+        }
+
+        return response
     }
 }

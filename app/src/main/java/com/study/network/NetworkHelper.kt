@@ -8,7 +8,7 @@ import android.os.Build
 import androidx.annotation.RequiresPermission
 
 
-class ConnectHelper(context: Context) {
+class NetworkHelper(context: Context) {
 
     private val connMgr: ConnectivityManager by lazy {
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

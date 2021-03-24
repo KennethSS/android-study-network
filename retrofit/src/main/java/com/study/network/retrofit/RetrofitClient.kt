@@ -1,7 +1,9 @@
 package com.study.network.retrofit
 
-import com.study.network.retrofit.interceptor.ErrorInterceptor
-import com.study.network.retrofit.interceptor.ForceCacheInterceptor
+import com.study.network.retrofit.interceptor.NetworkState
+import com.study.network.retrofit.interceptor.application.CacheInterceptor
+import com.study.network.retrofit.interceptor.application.ForceCacheInterceptor
+import com.study.network.retrofit.interceptor.network.NetworkConnectionInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -26,7 +28,8 @@ import java.util.concurrent.TimeUnit
  *
  **/
 object RetrofitClient {
-    var isDebug: Boolean = true
+    private var isDebug: Boolean = true
+    private var networkState: NetworkState? = null
 
     private const val CONNECTION_TIMEOUT = 10L
     private const val WRITE_TIMEOUT = 30L
@@ -34,6 +37,12 @@ object RetrofitClient {
 
     inline fun <reified T> provideService(): T =
         getRetrofit(buildOkHttpInterceptor(), "").create(T::class.java)
+
+    fun init(isDebug: Boolean = false,
+             networkState: NetworkState? = null) {
+        this.isDebug = isDebug
+        this.networkState = networkState
+    }
 
     fun buildOkHttpInterceptor(): OkHttpClient = run {
         OkHttpClient.Builder().run {
@@ -46,6 +55,12 @@ object RetrofitClient {
                     HttpLoggingInterceptor()
                         .setLevel(HttpLoggingInterceptor.Level.BODY)
                 )
+            }
+
+
+            networkState?.let { networkState ->
+                addInterceptor(ForceCacheInterceptor(networkState))
+                addNetworkInterceptor(NetworkConnectionInterceptor(networkState))
             }
 
             build()
