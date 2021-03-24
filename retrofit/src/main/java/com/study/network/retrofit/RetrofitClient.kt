@@ -1,5 +1,7 @@
 package com.study.network.retrofit
 
+import com.study.network.retrofit.interceptor.ErrorInterceptor
+import com.study.network.retrofit.interceptor.ForceCacheInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -24,39 +26,30 @@ import java.util.concurrent.TimeUnit
  *
  **/
 object RetrofitClient {
+    var isDebug: Boolean = true
+
     private const val CONNECTION_TIMEOUT = 10L
     private const val WRITE_TIMEOUT = 30L
     private const val READ_TIMEOUT = 30L
 
-    inline fun <reified T>provideService(isDebug: Boolean): T  {
-        val retrofit = getRetrofit(
-            buildOkHttpInterceptor(isDebug),
-            ""
-        )
-        return retrofit.create(T::class.java)
-    }
+    inline fun <reified T> provideService(): T =
+        getRetrofit(buildOkHttpInterceptor(), "").create(T::class.java)
 
-    fun buildOkHttpInterceptor(isDebug: Boolean): OkHttpClient {
-        val httpClientBuilder = OkHttpClient.Builder()
-            .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
-            .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
-            .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+    fun buildOkHttpInterceptor(): OkHttpClient = run {
+        OkHttpClient.Builder().run {
+            connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
+            writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
+            readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
 
-        if (isDebug) {
-            httpClientBuilder
-                .addNetworkInterceptor(
+            if (isDebug) {
+                addNetworkInterceptor(
                     HttpLoggingInterceptor()
                         .setLevel(HttpLoggingInterceptor.Level.BODY)
                 )
+            }
+
+            build()
         }
-
-        /*httpClientBuilder.addNetworkInterceptor { chain ->
-            val request = chain.request()
-            val builder: Request.Builder = request.newBuilder()
-            chain.proceed(builder.build())
-        }*/
-
-        return httpClientBuilder.build()
     }
 
     fun getRetrofit(okHttpClient: OkHttpClient, baseUrl: String): Retrofit {
