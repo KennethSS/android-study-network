@@ -1,8 +1,6 @@
-package com.study.network.retrofit.interceptor
+package com.study.network.retrofit.exception
 
-import okhttp3.CacheControl
-import okhttp3.Interceptor
-import okhttp3.Response
+import java.io.IOException
 
 /**
  * Copyright 2020 Kenneth
@@ -20,16 +18,4 @@ import okhttp3.Response
  * limitations under the License.
  *
  **/
-class ForceCacheInterceptor(
-    private val networkManager: NetworkManager
-) : Interceptor {
-    override fun intercept(chain: Interceptor.Chain): Response {
-        val builder = chain.request().newBuilder()
-
-        if (networkManager.isNetworkConnected()) {
-            builder.cacheControl(CacheControl.FORCE_CACHE)
-        }
-
-        return chain.proceed(builder.build())
-    }
-}
+class NetworkConnectException : IOException()

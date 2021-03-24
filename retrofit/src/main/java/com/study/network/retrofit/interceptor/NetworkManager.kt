@@ -17,5 +17,5 @@ package com.study.network.retrofit.interceptor
  *
  **/
 interface NetworkManager {
-    fun isInternetAvailable(): Boolean
+    fun isNetworkConnected(): Boolean
 }

@@ -1,4 +1,4 @@
-package com.study.network.retrofit.interceptor
+package com.study.network.retrofit.interceptor.network
 
 import okhttp3.Interceptor
 import okhttp3.Response

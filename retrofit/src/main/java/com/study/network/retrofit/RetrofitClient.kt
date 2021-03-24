@@ -52,6 +52,7 @@ object RetrofitClient {
         }
     }
 
+
     fun getRetrofit(okHttpClient: OkHttpClient, baseUrl: String): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
