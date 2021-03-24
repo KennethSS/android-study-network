@@ -9,7 +9,7 @@
  ## okHttp
 
  ### Interceptor
- <img src=" https://github.com/KennethSS/android-study-network/blob/master/resource/okhttp_core.png" align="right" width="30%"></img>
+ <img src="https://github.com/KennethSS/android-study-network/blob/master/resource/okhttp_core.png" align="right" width="30%"></img>
 
  
  - Application Interceptor: 응답 받은 콘텐트 내용이나 Request 콘텐츠 관련
