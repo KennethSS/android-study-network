@@ -16,7 +16,12 @@ package com.study.network
  * limitations under the License.
  *
  **/
-data class NetworkMsg(
-    val title: String = "",
-    val desc: String = ""
-)
+/*
+fun <T> Single<T>.singleNetwork(state: MutableLiveData<NetworkState<T>>) =
+    subscribeOn(Schedulers.io())
+        .doOnSubscribe { state.postValue(NetworkState.Loading) }
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+            { state.postValue(NetworkState.Success(it))  },
+            { state.postValue(NetworkState.Error(it.toNetworkMsg())) }
+        )*/

@@ -1,4 +1,4 @@
-package com.study.network
+package com.study.network.helper
 
 import android.Manifest
 import android.content.Context

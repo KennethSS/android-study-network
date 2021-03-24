@@ -12,7 +12,5 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         NetworkService().getNetwork("https://mobile-coding-test.gangnamunni.com/users:443")
-
-
     }
 }

@@ -1,4 +1,4 @@
-package com.study.network
+package com.study.network.retrofit
 
 sealed class NetworkState<out T> {
     object Init : NetworkState<Nothing>()
