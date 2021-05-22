@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.study.network"
-        minSdkVersion 21
+        minSdkVersion 14
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -44,6 +44,10 @@ dependencies {
 
     implementation deps.debugging.timber
     implementation 'com.orhanobut:logger:2.2.0'
+
+    implementation deps.rxjava2.rxjava
+    implementation deps.rxjava2.rxandroid
+    implementation 'com.google.code.gson:gson:2.8.6'
 
 
     testImplementation 'junit:junit:4.+'

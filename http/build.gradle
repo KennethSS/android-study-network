@@ -1,11 +1,29 @@
 plugins {
-    id 'java-library'
-    id 'kotlin'
+    id 'com.android.application'
+    id 'kotlin-android'
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.study.network"
+        minSdkVersion 14
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
@@ -13,4 +31,9 @@ dependencies {
 
     implementation deps.debugging.timber
     implementation 'com.orhanobut:logger:2.2.0'
+
+    testImplementation 'junit:junit:4.+'
+    testImplementation 'androidx.test.ext:junit:1.1.2'
+    testImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    testImplementation 'org.json:json:20180813'
 }
