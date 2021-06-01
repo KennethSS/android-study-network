@@ -36,7 +36,7 @@ object RetrofitClient {
     private const val READ_TIMEOUT = 30L
 
     inline fun <reified T> provideService(): T =
-        getRetrofit(buildOkHttpInterceptor(), "").create(T::class.java)
+        getRetrofit(buildOkHttpInterceptor(), "https://picsum.photos/").create(T::class.java)
 
     fun init(isDebug: Boolean = false,
              networkState: NetworkState? = null) {
@@ -56,7 +56,6 @@ object RetrofitClient {
                         .setLevel(HttpLoggingInterceptor.Level.BODY)
                 )
             }
-
 
             networkState?.let { networkState ->
                 addInterceptor(ForceCacheInterceptor(networkState))

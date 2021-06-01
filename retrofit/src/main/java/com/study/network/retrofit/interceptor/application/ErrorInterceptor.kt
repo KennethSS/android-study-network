@@ -1,5 +1,6 @@
 package com.study.network.retrofit.interceptor.application
 
+import com.study.network.retrofit.exception.NetworkException
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
@@ -29,6 +30,10 @@ class ErrorInterceptor : Interceptor {
             in 200..299 -> {
 
             }
+            400 -> throw NetworkException.BadRequestException("BadRequestException")
+            401 -> throw NetworkException.UnauthorizedException("UnauthorizedException")
+            403 -> throw NetworkException.ForbiddenException("ForbiddenException")
+            404 -> throw NetworkException.NotFoundException("NotFoundException")
             else -> {
 
             }

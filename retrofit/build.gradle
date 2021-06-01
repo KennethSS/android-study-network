@@ -11,9 +11,16 @@ java {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    implementation deps.retrofit.retrofit
-    implementation deps.retrofit.adapter_rxjava
-    implementation deps.retrofit.converter_gson
+    def retrofit = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
 
-    implementation deps.okhttp3.logging
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit"
+
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
+
+    implementation 'com.squareup.okhttp3:mockwebserver:4.7.2'
+
+    def okHttp3 = "4.9.1"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttp3"
 }
