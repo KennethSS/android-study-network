@@ -18,6 +18,7 @@ import com.study.network.retrofit.exception.NetworkConnectException
  * limitations under the License.
  *
  **/
+/*
 fun Throwable.toNetworkMsg(): NetworkMsg {
     return when(this) {
         is NetworkConnectException -> NetworkMsg(
@@ -28,4 +29,4 @@ fun Throwable.toNetworkMsg(): NetworkMsg {
                 "알림", "예상치 못한 문제가 발생했습니다. 잠시 후 다시 시도해주세요.")
         }
     }
-}
+}*/

@@ -30,10 +30,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/retrofit.kotlin_module'
+    }
 }
 
 dependencies {
-    implementation project(path: ':http')
     implementation project(path: ':retrofit')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
