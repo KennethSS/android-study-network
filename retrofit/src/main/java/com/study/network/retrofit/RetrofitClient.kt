@@ -36,7 +36,7 @@ object RetrofitClient {
     private const val READ_TIMEOUT = 30L
 
     inline fun <reified T> provideService(): T =
-        getRetrofit(buildOkHttpInterceptor(), "https://picsum.photos/").create(T::class.java)
+        getRetrofit(buildOkHttpInterceptor(), "http://192.168.0.32:8080/").create(T::class.java)
 
     fun init(isDebug: Boolean = false,
              networkState: NetworkState? = null) {
@@ -70,7 +70,6 @@ object RetrofitClient {
     fun getRetrofit(okHttpClient: OkHttpClient, baseUrl: String): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(baseUrl)
             .build()

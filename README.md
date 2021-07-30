@@ -23,3 +23,15 @@ NetworkException
 - ForbiddenException
 - NotFoundException
 - UnknownException
+
+
+
+## Trouble Shooting
+- Parameter type must not include a type variable or wildcard: java.util.Map.....
+  해결 방법은 Map부분을 MutableMap이나 HashMap로 바꿔주면 된다.
+  before
+  fun request(@PartMap params: Map<String, RequestBody>): Flowable<Result>
+  after
+  fun request(@PartMap params: HashMap<String,  RequestBody>): Flowable<Result>
+- 
+  
