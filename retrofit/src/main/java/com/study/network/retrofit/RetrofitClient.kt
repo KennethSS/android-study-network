@@ -1,5 +1,10 @@
 package com.study.network.retrofit
 
+import com.google.gson.FieldNamingPolicy
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.study.network.retrofit.interceptor.NetworkState
 import com.study.network.retrofit.interceptor.application.CacheInterceptor
 import com.study.network.retrofit.interceptor.application.ForceCacheInterceptor
@@ -9,6 +14,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
 /**
@@ -70,8 +76,22 @@ object RetrofitClient {
     fun getRetrofit(okHttpClient: OkHttpClient, baseUrl: String): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(provideGson()))
+            .addConverterFactory(MoshiConverterFactory.create(provideMoshi()))
             .baseUrl(baseUrl)
+            .build()
+    }
+
+
+    private fun provideGson(): Gson {
+        return GsonBuilder()
+            .setFieldNamingStrategy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .create()
+    }
+
+    private fun provideMoshi(): Moshi {
+        return Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
             .build()
     }
 }

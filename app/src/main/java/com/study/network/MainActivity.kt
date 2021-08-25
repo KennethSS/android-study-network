@@ -49,7 +49,11 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
           runCatching {
-            service.postFeed(hashMapOf("text" to text, "image" to image))
+            service.postFeed(
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI4MjMzMjQwLCJqdGkiOiJhYWE2NmI3OTNkMjE0MTE5ODRjZjYxYzViODA3NWNhYiIsInVzZXJfaWQiOjF9.U3PJ0U5Qt8cnSk1FEdxfzN0fJjY9cRo03ApckSTlfqc",
+              body,
+              hashMapOf("text" to text)
+            )
           }.onFailure {
             Log.d("MainActivity", "Failure ")
             Log.d("MainActivity", "${it.message}")
