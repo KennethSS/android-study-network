@@ -16,19 +16,15 @@ import com.study.network.service.BasicService
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.engine.impl.GlideEngine
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
-import java.security.Permission
 
 class MainActivity : AppCompatActivity() {
 
-  val service: BasicService = RetrofitClient.provideService()
+  val service: BasicService = RetrofitClient.provideService("")
   private val MULTIPART_FORM = "multipart/form-data".toMediaTypeOrNull()
   private val IMAGE_PARAM = "image"
 
@@ -37,6 +33,7 @@ class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
+    
     requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
       findViewById<Button>(R.id.upload).setOnClickListener {
 

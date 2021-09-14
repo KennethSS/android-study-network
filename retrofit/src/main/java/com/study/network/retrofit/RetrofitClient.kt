@@ -41,8 +41,8 @@ object RetrofitClient {
     private const val WRITE_TIMEOUT = 30L
     private const val READ_TIMEOUT = 30L
 
-    inline fun <reified T> provideService(): T =
-        getRetrofit(buildOkHttpInterceptor(), "http://192.168.0.32:8080/").create(T::class.java)
+    inline fun <reified T> provideService(url: String): T =
+        getRetrofit(buildOkHttpInterceptor(), url).create(T::class.java)
 
     fun init(isDebug: Boolean = false,
              networkState: NetworkState? = null) {
