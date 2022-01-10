@@ -3,8 +3,9 @@
  - useTraffic Manifest
 
 
-## Retrofit
-
+# Retrofit
+## Retrofit 겪은 이슈
+- Reseponse Content가 Empty일 때 에러르 마주했는데 서비스엣 Any로 리턴하지않고 Unit을 리턴으로 해결
 
  ## okHttp
 
